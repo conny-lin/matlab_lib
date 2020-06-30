@@ -1,0 +1,51 @@
+Running correctMWTnamingswitchboard3...
+Removing ext from drafted file names...
+{Index exceeds matrix dimensions.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('ridoffMWTfsnext', '/Users/connylinlin/Documents/Lab/Methods & Database/Analysis/MatlabProgramming/MWT_Function_Archive/ridoffMWTfsnext.m', 5)" style="font-weight:bold">ridoffMWTfsnext</a> (<a href="matlab: opentoline('/Users/connylinlin/Documents/Lab/Methods & Database/Analysis/MatlabProgramming/MWT_Function_Archive/ridoffMWTfsnext.m',5,0)">line 5</a>)
+MWTfsn(:,2) =
+cellfun(@strrep,MWTfsn(:,2),a,b,'UniformOutput',0); %
+remove extension
+
+Error in <a href="matlab:helpUtils.errorDocCallback('draftMWTfname', '/Users/connylinlin/Documents/Lab/Methods & Database/Analysis/MatlabProgramming/MWT_Function_Archive/draftMWTfname.m', 17)" style="font-weight:bold">draftMWTfname</a> (<a href="matlab: opentoline('/Users/connylinlin/Documents/Lab/Methods & Database/Analysis/MatlabProgramming/MWT_Function_Archive/draftMWTfname.m',17,0)">line 17</a>)
+[MWTfsn] = ridoffMWTfsnext(MWTfsn); % get rid of
+extension from MWTfsn
+
+Error in <a href="matlab:helpUtils.errorDocCallback('correctMWTnamingswitchboard3', '/Users/connylinlin/Documents/Lab/Methods & Database/Analysis/MatlabProgramming/MWT_Function_Archive/correctMWTnamingswitchboard3.m', 5)" style="font-weight:bold">correctMWTnamingswitchboard3</a> (<a href="matlab: opentoline('/Users/connylinlin/Documents/Lab/Methods & Database/Analysis/MatlabProgramming/MWT_Function_Archive/correctMWTnamingswitchboard3.m',5,0)">line 5</a>)
+[MWTfsn] = draftMWTfname('*.set',MWTf,pMWTf);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('ShaneSpark', '/Users/connylinlin/Documents/Lab/Methods & Database/Analysis/MatlabProgramming/MWT_Function_Archive/ShaneSpark.m', 15)" style="font-weight:bold">ShaneSpark</a> (<a href="matlab: opentoline('/Users/connylinlin/Documents/Lab/Methods & Database/Analysis/MatlabProgramming/MWT_Function_Archive/ShaneSpark.m',15,0)">line 15</a>)
+[MWTfsn] = correctMWTnamingswitchboard3(pExpO); % Make
+sure MWTrun naming are correct
+
+Error in <a href="matlab:helpUtils.errorDocCallback('Dance', '/Users/connylinlin/Documents/Lab/Methods & Database/Analysis/MatlabProgramming/MWT_Function_Archive/Dance.m', 15)" style="font-weight:bold">Dance</a> (<a href="matlab: opentoline('/Users/connylinlin/Documents/Lab/Methods & Database/Analysis/MatlabProgramming/MWT_Function_Archive/Dance.m',15,0)">line 15</a>)
+        ShaneSpark(pExp,pFun);
+} 
+[MWTf,pMWTf] = dircontentmwt(pExp); % get only MWTf
+[MWTfsn] = draftMWTfname('*.set',MWTf,pMWTf);
+Removing ext from drafted file names...
+{Index exceeds matrix dimensions.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('ridoffMWTfsnext', '/Users/connylinlin/Documents/Lab/Methods & Database/Analysis/MatlabProgramming/MWT_Function_Archive/ridoffMWTfsnext.m', 5)" style="font-weight:bold">ridoffMWTfsnext</a> (<a href="matlab: opentoline('/Users/connylinlin/Documents/Lab/Methods & Database/Analysis/MatlabProgramming/MWT_Function_Archive/ridoffMWTfsnext.m',5,0)">line 5</a>)
+MWTfsn(:,2) =
+cellfun(@strrep,MWTfsn(:,2),a,b,'UniformOutput',0); %
+remove extension
+
+Error in <a href="matlab:helpUtils.errorDocCallback('draftMWTfname', '/Users/connylinlin/Documents/Lab/Methods & Database/Analysis/MatlabProgramming/MWT_Function_Archive/draftMWTfname.m', 17)" style="font-weight:bold">draftMWTfname</a> (<a href="matlab: opentoline('/Users/connylinlin/Documents/Lab/Methods & Database/Analysis/MatlabProgramming/MWT_Function_Archive/draftMWTfname.m',17,0)">line 17</a>)
+[MWTfsn] = ridoffMWTfsnext(MWTfsn); % get rid of
+extension from MWTfsn
+} 
+[MWTf,pMWTf] = dircontentmwt(pExp); % get only MWTf
+MWTf
+
+MWTf = 
+
+     {}
+
+cd('/Users/connylinlin/MatLabTest/MWT_Personal_Folders/Conny_Lin/20110827B_CL_100s30x10s10s_pilot2')
+pExp = cd
+
+pExp =
+
+/Users/connylinlin/MatLabTest/MWT_Personal_Folders/Conny_Lin/20110827B_CL_100s30x10s10s_pilot2
+

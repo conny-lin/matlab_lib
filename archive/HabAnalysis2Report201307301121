@@ -1,0 +1,103 @@
+unzipping files, please wait...
+Found the following MWT run names:
+[20120305_155850]N2_5x3_l96h20C_100s30x10s10s_A0302aa
+[20120305_155955]N2_5x3_l96h20C_100s30x10s10s_A0302aa
+Parsing MWT run names...
+parsing [20120305_155850]N2_5x3_l96h20C_100s30x10s10s_A0302aa
+parsing [20120305_155955]N2_5x3_l96h20C_100s30x10s10s_A0302aa
+Parsing validation successful.
+Some MWT folder contains the same MWT run names
+Detecting duplication...
+
+di =
+
+     1
+     2
+
+
+RCDup = 
+
+  Columns 1 through 7
+
+    [1x36 char]    'N2'    '5'    '3'    'l'    '96'    '20'
+    [1x36 char]    'N2'    '5'    '3'    'l'    '96'    '20'
+
+  Columns 8 through 14
+
+    '100'    '30'    '10'    '10s'    'A'    '0302'    'a'
+    '100'    '30'    '10'    '10s'    'A'    '0302'    'a'
+
+  Columns 15 through 16
+
+    'a'    '20120305_155850'
+    'a'    '20120305_155955'
+
+for MWT experiment 20120305_155850...
+the MWT run name is N2_5x3_l96h20C_100s30x10s10s_A0302aa
+    [ 1]    'Full name'              
+    [ 2]    'Strain'                 
+    [ 3]    '# worms used to sync'   
+    [ 4]    'length of sync (hr)'    
+    [ 5]    'synchronized method'    
+    [ 6]    'worm age (h) at MWT run'
+    [ 7]    'culturing temperature'  
+    [ 8]    'preplate (s)'           
+    [ 9]    'number of taps'         
+    [10]    'ISI'                    
+    [11]    'time(s) > last tap'     
+    [12]    'tracker code'           
+    [13]    'date of sync'           
+    [14]    'group code'             
+    [15]    'plate code'             
+
+MWT experiment: 20120305_155850
+MWT current run name: N2_5x3_l96h20C_100s30x10s10s_A0302aa
+Which part do you want to fix? 15
+Enter correct plate code: a
+Parsing MWT run names...
+parsing [20120305_155850]N2_5x3_l96h20C_100s30x10s10s_A0302aa
+Parsing validation successful.
+ 
+N2_5x3_l96h20C_100s30x10s10s_A0302aa
+Is this correct (1=yes, 0=no or more to correct)? 
+for MWT experiment 20120305_155955...
+the MWT run name is N2_5x3_l96h20C_100s30x10s10s_A0302aa
+    [ 1]    'Full name'              
+    [ 2]    'Strain'                 
+    [ 3]    '# worms used to sync'   
+    [ 4]    'length of sync (hr)'    
+    [ 5]    'synchronized method'    
+    [ 6]    'worm age (h) at MWT run'
+    [ 7]    'culturing temperature'  
+    [ 8]    'preplate (s)'           
+    [ 9]    'number of taps'         
+    [10]    'ISI'                    
+    [11]    'time(s) > last tap'     
+    [12]    'tracker code'           
+    [13]    'date of sync'           
+    [14]    'group code'             
+    [15]    'plate code'             
+
+MWT experiment: 20120305_155955
+MWT current run name: N2_5x3_l96h20C_100s30x10s10s_A0302aa
+Which part do you want to fix? 15
+Enter correct plate code: b
+Parsing MWT run names...
+parsing [20120305_155955]N2_5x3_l96h20C_100s30x10s10s_A0302ab
+Parsing validation successful.
+ 
+N2_5x3_l96h20C_100s30x10s10s_A0302ab
+Is this correct (1=yes, 0=no or more to correct)? 1
+file correction begins...
+20120305_155955 file names corrected
+file correction finished.
+Parsing MWT run names...
+parsing [20120305_155850]N2_5x3_l96h20C_100s30x10s10s_A0302aa
+parsing [20120305_155955]N2_5x3_l96h20C_100s30x10s10s_A0302ab
+Parsing validation successful.
+ 
+MWT naming user validation begins...
+ 
+[20120305_155850]N2_5x3_l96h20C_100s30x10s10s_A0302aa
+[20120305_155955]N2_5x3_l96h20C_100s30x10s10s_A0302ab
+Are all MWTf above named correctly? (y=1,n=0) 1

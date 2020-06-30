@@ -1,0 +1,47 @@
+How to use Beethoven_v2:
+
+Data Structure:
+You need to have all your zip files separated into folders by group
+**Important: All files of the same group must have the same experimental parameters!!!
+**Important: The Absolute path to your group folders must contain no spaces or special characters, except underscore '_' (Absolute path is the list of directories from the root folder in the file system to you group folder - for example, the absolute path for Beethoven_v2.jar on the desktop is: /home/crankin/Desktop/Beethoven_v2.jar, it is a good example of an absolute path with no spaces or special characters).
+
+
+Quick Use (if you are already familiar with the General Use):
+If you are only analyzing a single group and you want to use the default settings then use the following method:
+java -jar 'drag the Beethoven_v2.jar file from the desktop into the terminal' d xScale 'drag the group Folder into the terminal' (press Enter)
+
+**Important: not forget the d after the Beethoven_v2.jar file or the quick use method won't work (d tells Beethoven to use the default settings)
+
+
+General Use:
+-Open terminal
+-type java -jar 'drag the Beethoven_v2.jar file from the desktop into the terminal' (press enter)
+-follow the instructions
+-let Beethoven do the work (depending on the length of your experiments, it will take a few minutes to analyze because it is calling Choreography for each zip file that you put in the folder and then combining the data and graphing it).  When it is done it will be back at the prompt crankin@Leviathan:~$
+-For each group you will find two .png files, one for Reversal Probability and one for Reversal Distance, in the respective group folder.  
+
+If you want the raw data to graph yourself, you can open the .dat files.  The first column is time, second column is the weighted mean across your plates and the last column is the weighted standard deviation between your plates (a good estimate of the standard error of the measure).  The columns inbetween are the mean for each plate if you are interested.  You can also look at the data in more detail for each individual plate by going into the specific experiment folder.  
+The .trv file is the rev file for any taps during the experiment, while the .prv file is the rev file for any 'puff' stimuli.  If you didn't have any puffs or taps then you won't have a .prv or .trv file respectively.
+
+Notes regarding instructions:
+
+xScale refers to the min and max time you would like on the x-axis of your graphs - format = min_time_in_sec:max_time_in_sec (eg. 90:410 - x-axis would go from 90sec to 410sec)
+
+If you choose to standarize your data, Beethoven will make all values the fraction of the initial response of that group. **Note: In the raw data files, the only columns that will be valid are the first, second and last.  The algorythm makes the other columns meaningless.
+
+If you choose to make a combined graph of your data, make sure all the groups you are analyzing have the same experimental parameters or the combiner may not work.  Also, the combiner has a maximum of 4 groups.  If you choose more than 4, it will combine the first 4 groups you choose.  When combined, you'll find the graphs in the parent folder of group 1.
+
+If you want to use a different version of Choreography to analyze your data, or different Chore arguments you can do this by adding the 'Choreography path' and 'Chore arguments' to the terminal prompt when you open Beethoven. For example:
+
+java -jar 'drag the Beethoven_v2.jar file from the desktop into the terminal' 'drag the Chore.jar file that you would like to use into the terminal' -p 0.026 -s 0.1 -t 20 -M 4 -m 3 --shadowless -S -o sb1 --plugin Reoutline --plugin Respine --plugin MeasureReversal::tap::dt=0.5::collect=0.5::postfix=trv
+
+**Note: If you want to change the Chore Arguments, you must specify a Chore file.  The reverse is not the case; you can specify a new Chore file but use the default chore args.
+
+
+
+If you have any questions or come across any errors or bugs contact Andrew.  If you want Beethoven to analyze things differently feel free to experiment with the source code to make modifications yourself, but make sure you make a new program, DO NOT OVERWRITE the current Beethoven files!!!! The source code is located at: /home/crankin/NetBeansProjects/Beethoven_v2
+
+
+TIP: if you get an error on every file immediately, most likely one of the folders your files are nested within contains a space in its name. You'll need to remove it.
+
+

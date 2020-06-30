@@ -1,0 +1,154 @@
+%% INITIALIZING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%20170721%
+clc; clear; close all;
+addpath('/Users/connylin/Dropbox/Code/Matlab/Library/General');
+pSave = setup_std(mfilename('fullpath'),'RL','genSave',true);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%20170721%
+
+% define measures
+msrlist = {'RevFreq','RevSpeed','RevDur'};
+
+%% GET MWT INFORMATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%20170721%
+[pMWT,MWTDB,Set] = search_MWTDB('ISI',10,...
+    'groupname',{'N2','N2_400mM','DA650','DA650_400mM'},...
+    'ctrlgroup',{'N2','N2_400mM'});
+
+tabulate(MWTDB.groupname)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%20170721%
+
+
+%% GET REVERESAL DATA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%20170721%
+MWTSet = Dance_ShaneSpark_v5r1(pMWT,'pSave',pSave);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%20170721%
+
+
+%% ANALYZE AREA UNDER THE CURVE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%20170721%
+% transform data -------------------------------------------------20170721-
+% individual plate line data
+Raw = MWTSet.Raw;
+ru =unique(Raw.mwtid);
+rn = numel(ru); % get number of mwtid
+cu = unique(Raw.tap);
+cn = numel(cu); % get number of taps
+% create structure array output
+S = struct; 
+S.mwtid = ru;
+S.taps = cu;
+for msri = 1:numel(msrlist)
+    msr = msrlist{msri}; % get msr name
+    A = nan(rn,cn); % create output array (r=mwtid, c=taps)
+    % get index from sub
+    r = Raw.mwtid;
+    c = Raw.tap;
+    i = sub2ind(size(A),r,c);
+    % locate data into output array, go by measures
+    A(i) = Raw.(msr);
+    % put into struct
+    S.(msr) = A;
+end
+%-----------------------------------------------------------------20170721-
+
+% calculations ---------------------------------------------------20170721-
+% calculate area under the curve  -------------------------------20170721-
+caltype = 'area';
+SS = struct;
+
+x = S.taps; % get x (tap)
+% create output table
+T = table;
+T.mwtid = S.mwtid;
+for msri = 1:numel(msrlist) % repeat by meausre 
+    msr = msrlist{msri}; % get msr name
+    D = S.(msr); % get data from the measure
+    % create output array
+    A = nan(size(D,1),1);
+    for mwtidi = 1:size(D,1) % repeat by mwtid
+        % get y per mwtid (response)
+        y = D(mwtidi,:);
+        % calculate area under the curve (taprz)
+        A(mwtidi) = trapz(x,y);
+    end
+    T.(msr) = A; % put data in summary
+end
+% get mwtid info from database
+M = MWTSet.MWTDB;
+T = outerjoin(T,M,'LeftVariable',T.Properties.VariableNames,...
+    'RightVariable',{'mwtid','expname','strain','groupname','rx'},...
+    'MergeKey',1);
+
+% anova
+for msri = 1:numel(msrlist) 
+    msr = msrlist{msri}; % get msr name
+    % anova for difference between groups - area under the curve 
+    [txt,anovastats,multstats,T2] = anova1_std_v2(T.(msr),T.groupname, 'plate');
+    % put in central array
+    SS.(msr).raw = T;
+    SS.(msr).anovatext = txt;
+    SS.(msr).anovastats = anovastats;
+    SS.(msr).multstats = multstats;
+    SS.(msr).descrptive = T2;
+end
+% final put back in Cal
+MWTSet.(caltype) = SS;
+
+%-----------------------------------------------------------------20170721-
+
+
+% percent difference from 0mM control %---------------------------20170721-
+caltype = 'area_pctctrl';
+SS = struct;
+
+ctrl_rx = {'NA'}; % define control
+Raw = MWTSet.area.Raw; % get data
+% exclude none 0mM data
+C = Raw(ismember(Raw.rx,ctrl_rx),:);
+% calculate 0mM control by experiment
+A = grpstats(C,{'expname','strain','groupname'},{'numel','mean','sem'},'DataVars',msrlist);
+% get only 400mM data
+E = Raw(~ismember(Raw.rx,ctrl_rx),:);
+% match variables by exp and strain
+CM = E(:,{'mwtid','expname','strain','groupname','rx'});
+% create msrlist names
+rv = strjoinrows([cellfunexpr(msrlist','mean') msrlist'],'_');
+C = outerjoin(CM,A,'RightVariables',rv,'Key',{'expname','strain'});
+% calculate percent difference from 0mM control
+A = E;
+for msri = 1:numel(msrlist)
+    msr = msrlist{msri};
+    cmsr = sprintf('mean_%s',msr);
+    e = E.(msr); % get exp data, 
+    c = C.(cmsr); % get control data
+    p = e./c; % exp divided by control data
+    A.(msr) = p; % put result in array CM
+end
+T = A;
+
+% anova
+for msri = 1:numel(msrlist) 
+    msr = msrlist{msri}; % get msr name
+    % anova for difference between groups - area under the curve 
+    [txt,anovastats,multstats,T2] = anova1_std_v2(T.(msr),T.groupname, 'plate');
+    % put in central array
+    SS.(msr).raw = T;
+    SS.(msr).anovatext = txt;
+    SS.(msr).anovastats = anovastats;
+    SS.(msr).multstats = multstats;
+    SS.(msr).descrptive = T2;
+end
+% final put back in Cal
+MWTSet.(caltype) = SS;
+
+%-----------------------------------------------------------------20170721-
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%20170721%
+
+
+
+
+
+

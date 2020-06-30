@@ -1,0 +1,76 @@
+%% raster plot data all strains
+
+%% INITIALIZING
+clc; clear; close all;
+addpath('/Users/connylin/Dropbox/Code/Matlab/Library/General');
+addpath('/Users/connylin/Dropbox/Code/Matlab/Library RL/Modules/Graphs/ephys');
+pM = setup_std(mfilename('fullpath'),'RL','genSave',true);
+addpath(pM);
+% ---------------------------
+
+%% GLOBAL INFORMATION
+% paths & settings -----------
+pSave = fileparts(pM);
+addpath(fileparts(pM));
+pData = '/Volumes/COBOLT/MWT';
+addpath('/Users/connylin/Dropbox/RL Pub PhD Dissertation/Chapters/3-Genes/3-Results/x-SummaryAssemble/Functions');
+addpath('/Users/connylin/Dropbox/Code/Matlab/Library RL/Modules/Graphs/rasterPlot_colorSpeed');
+% ---------------------------
+
+% strains %------
+pData = '/Users/connylin/Dropbox/RL Pub PhD Dissertation/Chapters/3-Genes/3-Results/0-Data/10sIS by strains';
+% get strain info
+s = dircontent(pData);
+strainNames = DanceM_load_strainInfo(s);
+pathwayseq = {'VGK'
+    'neuropeptide'
+    'Synaptic'
+    'Neuroligin'
+    'Gluamate'
+    'Dopamine'
+    'G protein'
+    'Gai'
+    'Gaq'
+    'Gas'
+    'TF'};
+strainNames.seq = zeros(size(strainNames,1),1);
+y = 1;
+for x = 1:numel(pathwayseq)
+    i = ismember(strainNames.pathway,pathwayseq{x});
+    k = sum(i);
+    strainNames.seq(i) = y:y+k-1;
+    y = y+k;
+end
+strainNames = sortrows(strainNames,{'seq'});
+strainlist = strainNames.strain;
+%----------------
+
+return
+%% exclude BZ
+strainNames(ismember(strainNames.strain,'BZ142'),:) = [];
+
+%% cycle through strain
+for si = 1:numel(strainlist)
+    % strain info +++++
+    si = 1;
+    strain = strainlist{si};
+    genotype = strainNames.genotype{si};
+    % -----------------
+
+    % create save path +++++++++++++++++++
+    prefix = '/Users/connylin/Dropbox/RL Pub PhD Dissertation/Chapters/3-Genes/3-Results/0-Data/10sIS by strains';
+    suffix = 'Raster';
+    pSave = fullfile(prefix,strain,suffix);
+    % -----------------------------------
+
+    % load data +++++++++++++++++++
+    prefix = '/Users/connylin/Dropbox/RL Pub PhD Dissertation/Chapters/3-Genes/3-Results/0-Data/10sIS by strains';
+    suffix = 'MWTDB.mat';
+    p = fullfile(prefix,strain,suffix);
+    load(p);
+    % ---------------------------------
+
+    % dance raster ---------------
+    Dance_Raster(MWTDB,'pSave',pSave)
+    % ----------------------------
+end
